@@ -1,7 +1,6 @@
 name: smart_player
 description: Flutter video player with custom advertisement,screen casting.
 version: 0.0.1
-authors: sandeep chopra<sandeepchopra98275@gmail.com>
 homepage: https://github.com/Sandy-develop-er/smart-player.git
 
 environment:
