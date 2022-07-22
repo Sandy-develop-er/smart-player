@@ -8,8 +8,7 @@ class ProgressBarPage extends StatefulWidget {
   final VideoPlayerController controller;
   final double? progressVol;
 
-  const ProgressBarPage(
-      {Key? key, required this.controller, this.progressVol})
+  const ProgressBarPage({Key? key, required this.controller, this.progressVol})
       : super(key: key);
 
   @override
@@ -26,14 +25,13 @@ class ProgressBarPageState extends State<ProgressBarPage> {
   }
 
   void setStateIfMounted() {
-    if (mounted) setState((){});
+    if (mounted) setState(() {});
   }
 
   @override
   void dispose() {
     super.dispose();
-    widget.controller.removeListener(() {
-    });
+    widget.controller.removeListener(() {});
   }
 
   void seekToRelativePosition(Offset globalPosition) {
@@ -90,7 +88,7 @@ class ProgressBarPageState extends State<ProgressBarPage> {
         color: Colors.black26,
         width: MediaQuery.of(context).size.width,
         child: Padding(
-          padding: const EdgeInsets.only(top: 7.0,left: 20,right: 20),
+          padding: const EdgeInsets.only(top: 7.0, left: 20, right: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -105,8 +103,7 @@ class ProgressBarPageState extends State<ProgressBarPage> {
                     : MediaQuery.of(context).size.width - 150,
                 child: GestureDetector(
                   child: CustomPaint(
-                    painter:
-                        progressFiller(controller: widget.controller),
+                    painter: progressFiller(controller: widget.controller),
                   ),
                   onHorizontalDragStart: (DragStartDetails details) {
                     if (!widget.controller.value.isInitialized) {

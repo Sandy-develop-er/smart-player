@@ -10,7 +10,8 @@ class FullScreenPlayerPage extends StatefulWidget {
   final int? duration;
   final VideoPlayerController controller;
 
-  const FullScreenPlayerPage({Key? key, this.duration, required this.controller})
+  const FullScreenPlayerPage(
+      {Key? key, this.duration, required this.controller})
       : super(key: key);
 
   @override
@@ -57,8 +58,7 @@ class _FullScreenPlayerPageState extends State<FullScreenPlayerPage> {
     _vlcController.addOnInitListener(() async {
       await _vlcController.startRendererScanning();
     });
-    _vlcController.addOnRendererEventListener((type, id, name) {
-    });
+    _vlcController.addOnRendererEventListener((type, id, name) {});
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
   }
@@ -127,61 +127,61 @@ class _FullScreenPlayerPageState extends State<FullScreenPlayerPage> {
                     alignment: Alignment.topRight,
                     child: isLocked == false
                         ? PopupMenuButton<double>(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      onSelected: (speed) {
-                        widget.controller.setPlaybackSpeed(speed);
-                      },
-                      itemBuilder: (context) {
-                        return [
-                          for (final speed in _examplePlaybackRates)
-                            PopupMenuItem(
-                              value: speed,
-                              child: Text(
-                                '${speed}x',
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            onSelected: (speed) {
+                              widget.controller.setPlaybackSpeed(speed);
+                            },
+                            itemBuilder: (context) {
+                              return [
+                                for (final speed in _examplePlaybackRates)
+                                  PopupMenuItem(
+                                    value: speed,
+                                    child: Text(
+                                      '${speed}x',
+                                    ),
+                                  )
+                              ];
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                color: Colors.black45,
+                                borderRadius: BorderRadius.circular(50),
                               ),
-                            )
-                        ];
-                      },
-                      child: Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: Colors.black45,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: const Icon(
-                          Icons.more_vert,
-                          color: Colors.white,
-                          size: 25.0,
-                        ),
-                      ),
-                    )
+                              child: const Icon(
+                                Icons.more_vert,
+                                color: Colors.white,
+                                size: 25.0,
+                              ),
+                            ),
+                          )
                         : InkWell(
-                      onTap: () {
-                        isLocked = false;
-                        showControls = true;
-                        setState(() {});
-                      },
-                      child: Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: Colors.black45,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: const Icon(
-                          Icons.lock,
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                      ),
-                    ),
+                            onTap: () {
+                              isLocked = false;
+                              showControls = true;
+                              setState(() {});
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                color: Colors.black45,
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: const Icon(
+                                Icons.lock,
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                            ),
+                          ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20,left: 10),
+                  padding: const EdgeInsets.only(top: 20, left: 10),
                   child: InkWell(
                     onTap: () {
                       Navigator.pop(context, widget.controller);
@@ -210,7 +210,9 @@ class _FullScreenPlayerPageState extends State<FullScreenPlayerPage> {
                     ? customControls(widget.controller)
                     : Container(),
                 isLocked == false
-                    ? ProgressBarPage(controller: widget.controller,)
+                    ? ProgressBarPage(
+                        controller: widget.controller,
+                      )
                     : Container(),
               ],
             ),
@@ -391,9 +393,7 @@ class _FullScreenPlayerPageState extends State<FullScreenPlayerPage> {
                       castDevices.values.elementAt(index).toString(),
                     ),
                     onTap: () {
-                      Navigator.pop(
-                          context,
-                          castDevices.keys.elementAt(index));
+                      Navigator.pop(context, castDevices.keys.elementAt(index));
                     },
                   );
                 },
@@ -404,9 +404,10 @@ class _FullScreenPlayerPageState extends State<FullScreenPlayerPage> {
       );
       await _vlcController.castToRenderer(selectedCastDeviceName ?? "");
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('No Display Device Found!')));
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('No Display Device Found!')));
+      }
     }
   }
-
 }
