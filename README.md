@@ -10,9 +10,9 @@ A Flutter plugin for iOS and Android for playing back video on a Widget surface.
 
 ## Screenshots
 
-<img src="screen_shot/start_screen.png" width="500" height="600"/>
+<img src="https://raw.githubusercontent.com/Sandy-develop-er/smart-player/master/screen_shot/start_screen.png" width="500" height="600"/>
 
-<img src="screen_shot/full_screen.png"/>
+<img src="https://raw.githubusercontent.com/Sandy-develop-er/smart-player/master/screen_shot/full_screen.png"/>
 
 ## Installation
 

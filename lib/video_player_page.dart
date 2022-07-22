@@ -102,70 +102,72 @@ class SmartPlayerState extends State<SmartPlayer> {
                     alignment: Alignment.bottomRight,
                     child: isLocked == false
                         ? PopupMenuButton<double>(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      onSelected: (speed) {
-                        _controller?.setPlaybackSpeed(speed);
-                      },
-                      itemBuilder: (context) {
-                        return [
-                          for (final speed in _examplePlaybackRates)
-                            PopupMenuItem(
-                              value: speed,
-                              child: Text(
-                                '${speed}x',
-                              ),
-                            )
-                        ];
-                      },
-                      child: const Icon(
-                        Icons.more_vert,
-                        color: Colors.white,
-                        size: 25.0,
-                      ),
-                    )
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            onSelected: (speed) {
+                              _controller?.setPlaybackSpeed(speed);
+                            },
+                            itemBuilder: (context) {
+                              return [
+                                for (final speed in _examplePlaybackRates)
+                                  PopupMenuItem(
+                                    value: speed,
+                                    child: Text(
+                                      '${speed}x',
+                                    ),
+                                  )
+                              ];
+                            },
+                            child: const Icon(
+                              Icons.more_vert,
+                              color: Colors.white,
+                              size: 25.0,
+                            ),
+                          )
                         : InkWell(
-                      onTap: () {
-                        isLocked = false;
-                        showControls = true;
-                        setState((){});
-                      },
-                      child: const Icon(
-                        Icons.lock,
-                        color: Colors.white,
-                        size: 25.0,
-                      ),
-                    ),
+                            onTap: () {
+                              isLocked = false;
+                              showControls = true;
+                              setState(() {});
+                            },
+                            child: const Icon(
+                              Icons.lock,
+                              color: Colors.white,
+                              size: 25.0,
+                            ),
+                          ),
                   ),
                 )
               ],
             ),
             isSkipped == false && widget.showAds == true
                 ? InkWell(
-              onTap: () {
-                setState(() {
-                  isSkipped = true;
-                });
-                _adsController?.dispose();
-                _controller?.play();
-              },
-              child: Container(
-                alignment: Alignment.bottomRight,
-                padding: const EdgeInsets.only(right: 10, bottom: 20),
-                child: const Text("Skip ads",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white)),
-              ),
-            )
+                    onTap: () {
+                      setState(() {
+                        isSkipped = true;
+                      });
+                      _adsController?.dispose();
+                      _controller?.play();
+                    },
+                    child: Container(
+                      alignment: Alignment.bottomRight,
+                      padding: const EdgeInsets.only(right: 10, bottom: 20),
+                      child: const Text("Skip ads",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white)),
+                    ),
+                  )
                 : showControls == true
-                ? _controlsOverlay(_controller!)
-                : Container(),
+                    ? _controlsOverlay(_controller!)
+                    : Container(),
             isSkipped == false && widget.showAds == true
                 ? Container()
-                : isLocked == false ? ProgressBarPage(controller: _controller!) : Container(),
+                : isLocked == false
+                    ? ProgressBarPage(controller: _controller!)
+                    : Container(),
           ],
         ),
       ),
@@ -209,7 +211,8 @@ class SmartPlayerState extends State<SmartPlayer> {
                 MaterialButton(
                   onPressed: () async {
                     var position = await controller.position;
-                    controller.seekTo(Duration(seconds: position!.inSeconds - 5));
+                    controller
+                        .seekTo(Duration(seconds: position!.inSeconds - 5));
                     setState(() {});
                   },
                   minWidth: 20,
@@ -254,7 +257,8 @@ class SmartPlayerState extends State<SmartPlayer> {
                 MaterialButton(
                   onPressed: () async {
                     var position = await controller.position;
-                    controller.seekTo(Duration(seconds: position!.inSeconds + 5));
+                    controller
+                        .seekTo(Duration(seconds: position!.inSeconds + 5));
                     setState(() {});
                   },
                   minWidth: 20,
@@ -317,23 +321,22 @@ class SmartPlayerState extends State<SmartPlayer> {
     final hoursString = hours >= 10
         ? '$hours'
         : hours == 0
-        ? '00'
-        : '0$hours';
+            ? '00'
+            : '0$hours';
     final minutesString = minutes >= 10
         ? '$minutes'
         : minutes == 0
-        ? '00'
-        : '0$minutes';
+            ? '00'
+            : '0$minutes';
     final secondsString = seconds >= 10
         ? '$seconds'
         : seconds == 0
-        ? '00'
-        : '0$seconds';
+            ? '00'
+            : '0$seconds';
     final formattedTime =
         '${hoursString == '00' ? '' : '$hoursString:'}$minutesString:$secondsString';
     return formattedTime;
   }
-
 
   getRandomTimer() {
     int ads = 3;
