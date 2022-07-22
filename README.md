@@ -2,9 +2,9 @@
 
 A Flutter plugin for iOS and Android for playing back video on a Widget surface.
 
-|             | Android | iOS  | Web   |
-|-------------|---------|------|-------|
-| **Support** | SDK 21+ | 11.0+ | Any\* |
+|             | Android | iOS  |
+|-------------|---------|------|
+| **Support** | SDK 21+ | 11.0+|
 
 [comment]: <> (![The example app running in iOS]&#40;https://github.com/flutter/plugins/blob/main/packages/video_player/video_player/doc/demo_ipod.gif?raw=true&#41;)
 
