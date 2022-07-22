@@ -1,12 +1,18 @@
 # Smart Player plugin for Flutter
 
-A Flutter plugin for iOS, Android and Web for playing back video on a Widget surface.
+A Flutter plugin for iOS and Android for playing back video on a Widget surface.
 
 |             | Android | iOS  | Web   |
 |-------------|---------|------|-------|
 | **Support** | SDK 21+ | 11.0+ | Any\* |
 
 [comment]: <> (![The example app running in iOS]&#40;https://github.com/flutter/plugins/blob/main/packages/video_player/video_player/doc/demo_ipod.gif?raw=true&#41;)
+
+## Screenshots
+
+<img src="screen_shot/start_screen.png"/>
+
+<img src="screen_shot/full_screen.png"/>
 
 ## Installation
 
@@ -29,14 +35,6 @@ Android Manifest file, located in `<project root>/android/app/src/main/AndroidMa
 <uses-permission android:name="android.permission.INTERNET"/>
 ```
 
-### Web
-
-> The Web platform does **not** suppport `dart:io`, so avoid using the `VideoPlayerController.file` constructor for the plugin. Using the constructor attempts to create a `VideoPlayerController.file` that will throw an `UnimplementedError`.
-
-\* Different web browsers may have different video-playback capabilities (supported formats, autoplay...). Check [package:video_player_web](https://pub.dev/packages/video_player_web) for more web-specific information.
-
-The `VideoPlayerOptions.mixWithOthers` option can't be implemented in web, at least at the moment. If you use this option in web it will be silently ignored.
-
 ## Supported Formats
 
 - On iOS, the backing player is [AVPlayer](https://developer.apple.com/documentation/avfoundation/avplayer).
@@ -44,7 +42,6 @@ The `VideoPlayerOptions.mixWithOthers` option can't be implemented in web, at le
   has [audiovisualTypes](https://developer.apple.com/documentation/avfoundation/avurlasset/1386800-audiovisualtypes?language=objc) that you can query for supported av formats.
 - On Android, the backing player is [ExoPlayer](https://google.github.io/ExoPlayer/),
   please refer [here](https://google.github.io/ExoPlayer/supported-formats.html) for list of supported formats.
-- On Web, available formats depend on your users' browsers (vendor and version). Check [package:video_player_web](https://pub.dev/packages/video_player_web) for more specific information.
 
 ## Example
 
