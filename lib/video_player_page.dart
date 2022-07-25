@@ -9,12 +9,25 @@ import 'package:video_player/video_player.dart';
 import 'full_screen_player_page.dart';
 
 class SmartPlayer extends StatefulWidget {
+  ///this url contains video url.
   final String url;
+
+  ///this variable is used to show advertisement or not by default it is false.
   final bool? showAds;
+
+  ///this variable is used to start video at specific point initially,
+  /// it is started at starting and convert length in seconds and send in this variable.
   final int? startedAt;
 
+  ///this variable contains video url of advertisement before main video play.
+  final String? adsUrl;
+
   const SmartPlayer(
-      {Key? key, required this.url, this.showAds, this.startedAt = 0})
+      {Key? key,
+      required this.url,
+      this.showAds,
+      this.startedAt = 0,
+      this.adsUrl = ""})
       : super(key: key);
 
   @override
@@ -38,12 +51,15 @@ class SmartPlayerState extends State<SmartPlayer> {
   bool showControls = true;
   bool isLocked = false;
   int totalLength = 0;
+  String advertisementUrl = "";
 
   @override
   void initState() {
     super.initState();
-    _adsController = VideoPlayerController.network(
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4");
+    advertisementUrl = widget.adsUrl?.trim() ?? "";
+    _adsController = VideoPlayerController.network(advertisementUrl.isNotEmpty
+        ? advertisementUrl
+        : "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4");
     _adsController?.initialize().then((_) => setState(() {}));
     _adsController?.play();
     _controller = VideoPlayerController.network(widget.url);

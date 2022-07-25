@@ -30,7 +30,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +40,10 @@ class _MyHomePageState extends State<MyHomePage> {
         height: 300,
         width: MediaQuery.of(context).size.width,
         child: const SmartPlayer(
-            url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+          url:
+              "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+          adsUrl: "",
+          showAds: true,
         ),
       ),
     );

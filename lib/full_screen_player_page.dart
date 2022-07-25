@@ -7,11 +7,9 @@ import 'package:smart_player/progress_bar.dart';
 import 'package:video_player/video_player.dart';
 
 class FullScreenPlayerPage extends StatefulWidget {
-  final int? duration;
   final VideoPlayerController controller;
 
-  const FullScreenPlayerPage(
-      {Key? key, this.duration, required this.controller})
+  const FullScreenPlayerPage({Key? key, required this.controller})
       : super(key: key);
 
   @override
