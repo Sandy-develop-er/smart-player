@@ -9,7 +9,25 @@ import 'package:video_player/video_player.dart';
 class FullScreenPlayerPage extends StatefulWidget {
   final VideoPlayerController controller;
 
-  const FullScreenPlayerPage({Key? key, required this.controller})
+  ///this variable is use to change text color of time.
+  final Color? textColor;
+
+  ///this variable is use to change progress bar color.
+  final Color? selectedBarColor;
+
+  ///this variable is used to change progress unSelect bar color.
+  final Color? unSelectedBarColor;
+
+  ///this variable is used to change icon color.
+  final Color? iconColor;
+
+  const FullScreenPlayerPage(
+      {Key? key,
+      required this.controller,
+      this.textColor,
+      this.selectedBarColor,
+      this.unSelectedBarColor,
+      this.iconColor})
       : super(key: key);
 
   @override
@@ -47,7 +65,6 @@ class _FullScreenPlayerPageState extends State<FullScreenPlayerPage> {
 
   @override
   void initState() {
-    super.initState();
     _vlcController = VlcPlayerController.network(
       widget.controller.dataSource,
     );
@@ -59,6 +76,8 @@ class _FullScreenPlayerPageState extends State<FullScreenPlayerPage> {
     _vlcController.addOnRendererEventListener((type, id, name) {});
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+
+    super.initState();
   }
 
   void listener() async {
@@ -210,6 +229,9 @@ class _FullScreenPlayerPageState extends State<FullScreenPlayerPage> {
                 isLocked == false
                     ? ProgressBarPage(
                         controller: widget.controller,
+                        unSelectedBarColor: widget.unSelectedBarColor,
+                        textColor: widget.textColor,
+                        selectedBarColor: widget.selectedBarColor,
                       )
                     : Container(),
               ],
@@ -245,9 +267,9 @@ class _FullScreenPlayerPageState extends State<FullScreenPlayerPage> {
                             setState(() {});
                           },
                           minWidth: 20,
-                          child: const Icon(
+                          child: Icon(
                             Icons.lock,
-                            color: Colors.white,
+                            color: widget.iconColor ?? Colors.white,
                             size: 20.0,
                           ),
                         ),
@@ -256,9 +278,9 @@ class _FullScreenPlayerPageState extends State<FullScreenPlayerPage> {
                             _getRendererDevices();
                           },
                           minWidth: 20,
-                          child: const Icon(
+                          child: Icon(
                             Icons.cast,
-                            color: Colors.white,
+                            color: widget.iconColor ?? Colors.white,
                             size: 20.0,
                           ),
                         ),
@@ -272,9 +294,9 @@ class _FullScreenPlayerPageState extends State<FullScreenPlayerPage> {
                             setState(() {});
                           },
                           minWidth: 20,
-                          child: const Icon(
+                          child: Icon(
                             Icons.aspect_ratio,
-                            color: Colors.white,
+                            color: widget.iconColor ?? Colors.white,
                             size: 20.0,
                           ),
                         ),
@@ -288,9 +310,9 @@ class _FullScreenPlayerPageState extends State<FullScreenPlayerPage> {
                             // );
                           },
                           minWidth: 20,
-                          child: const Icon(
+                          child: Icon(
                             Icons.replay_5,
-                            color: Colors.white,
+                            color: widget.iconColor ?? Colors.white,
                             size: 20.0,
                           ),
                         ),
@@ -303,9 +325,9 @@ class _FullScreenPlayerPageState extends State<FullScreenPlayerPage> {
                                       : controller.play();
                                   setState(() {});
                                 },
-                                child: const Icon(
+                                child: Icon(
                                   Icons.pause,
-                                  color: Colors.white,
+                                  color: widget.iconColor ?? Colors.white,
                                   size: 30.0,
                                 ),
                               )
@@ -317,9 +339,9 @@ class _FullScreenPlayerPageState extends State<FullScreenPlayerPage> {
                                       : controller.play();
                                   setState(() {});
                                 },
-                                child: const Icon(
+                                child: Icon(
                                   Icons.play_arrow,
-                                  color: Colors.white,
+                                  color: widget.iconColor ?? Colors.white,
                                   size: 30.0,
                                 ),
                               ),
@@ -331,9 +353,9 @@ class _FullScreenPlayerPageState extends State<FullScreenPlayerPage> {
                                 Duration(seconds: position!.inSeconds + 5));
                           },
                           minWidth: 20,
-                          child: const Icon(
+                          child: Icon(
                             Icons.forward_5,
-                            color: Colors.white,
+                            color: widget.iconColor ?? Colors.white,
                             size: 20.0,
                           ),
                         ),
@@ -342,9 +364,9 @@ class _FullScreenPlayerPageState extends State<FullScreenPlayerPage> {
                             Navigator.pop(context, widget.controller);
                           },
                           minWidth: 20,
-                          child: const Icon(
+                          child: Icon(
                             Icons.fullscreen,
-                            color: Colors.white,
+                            color: widget.iconColor ?? Colors.white,
                             size: 20.0,
                           ),
                         ),

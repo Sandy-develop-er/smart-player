@@ -8,6 +8,21 @@ A Flutter plugin for iOS and Android for playing back video on a Widget surface.
 
 [comment]: <> (![The example app running in iOS]&#40;https://github.com/flutter/plugins/blob/main/packages/video_player/video_player/doc/demo_ipod.gif?raw=true&#41;)
 
+## Main Features
+
+- Add ads before video.
+- Dynamic ads url.
+- Casting.
+- Aspect ratio.
+- Dynamic color option.
+- Play back speed.
+- Screen lock option.
+
+## Future Feature
+
+- Picture-in-picture mode.
+- Access video from files.
+
 ## Screenshots
 
 <img src="https://raw.githubusercontent.com/Sandy-develop-er/smart-player/master/screen_shot/start_screen.png" width="500" height="600"/>

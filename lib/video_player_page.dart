@@ -15,19 +15,43 @@ class SmartPlayer extends StatefulWidget {
   ///this variable is used to show advertisement or not by default it is false.
   final bool? showAds;
 
-  ///this variable is used to start video at specific point initially,
-  /// it is started at starting and convert length in seconds and send in this variable.
+  ///this variable is used to start video at specific point,
+  ///initially video started at starting and convert length in seconds and send in this variable.
   final int? startedAt;
 
   ///this variable contains video url of advertisement before main video play.
   final String? adsUrl;
+
+  ///this variable is use to hide controls by default it is true.
+  final bool? showControls;
+
+  ///this variable is use to change text color of time.
+  final Color? textColor;
+
+  ///this variable is use to change progress bar color.
+  final Color? selectedBarColor;
+
+  ///this variable is used to change progress unSelect bar color.
+  final Color? unSelectedBarColor;
+
+  ///this variable is used to change skip video text color.
+  final Color? skipText;
+
+  ///this variable is used to change icon color.
+  final Color? iconColor;
 
   const SmartPlayer(
       {Key? key,
       required this.url,
       this.showAds,
       this.startedAt = 0,
-      this.adsUrl = ""})
+      this.adsUrl = "",
+      this.showControls = true,
+      this.textColor,
+      this.selectedBarColor,
+      this.unSelectedBarColor,
+      this.skipText,
+      this.iconColor})
       : super(key: key);
 
   @override
@@ -56,6 +80,7 @@ class SmartPlayerState extends State<SmartPlayer> {
   @override
   void initState() {
     super.initState();
+    showControls = widget.showControls ?? true;
     advertisementUrl = widget.adsUrl?.trim() ?? "";
     _adsController = VideoPlayerController.network(advertisementUrl.isNotEmpty
         ? advertisementUrl
@@ -93,6 +118,9 @@ class SmartPlayerState extends State<SmartPlayer> {
     return SingleChildScrollView(
       child: InkWell(
         onTap: () {
+          if (widget.showControls == false) {
+            return;
+          }
           if (!isLocked) {
             showControls = showControls == true ? false : true;
             setState(() {});
@@ -169,11 +197,11 @@ class SmartPlayerState extends State<SmartPlayer> {
                     child: Container(
                       alignment: Alignment.bottomRight,
                       padding: const EdgeInsets.only(right: 10, bottom: 20),
-                      child: const Text("Skip ads",
+                      child: Text("Skip ads",
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
-                              color: Colors.white)),
+                              color: widget.skipText ?? Colors.white)),
                     ),
                   )
                 : showControls == true
@@ -182,7 +210,11 @@ class SmartPlayerState extends State<SmartPlayer> {
             isSkipped == false && widget.showAds == true
                 ? Container()
                 : isLocked == false
-                    ? ProgressBarPage(controller: _controller!)
+                    ? ProgressBarPage(
+                        controller: _controller!,
+                        textColor: widget.textColor,
+                        selectedBarColor: widget.selectedBarColor,
+                        unSelectedBarColor: widget.unSelectedBarColor)
                     : Container(),
           ],
         ),
@@ -218,9 +250,9 @@ class SmartPlayerState extends State<SmartPlayer> {
                     setState(() {});
                   },
                   minWidth: 20,
-                  child: const Icon(
+                  child: Icon(
                     Icons.lock,
-                    color: Colors.white,
+                    color: widget.iconColor ?? Colors.white,
                     size: 20.0,
                   ),
                 ),
@@ -232,9 +264,9 @@ class SmartPlayerState extends State<SmartPlayer> {
                     setState(() {});
                   },
                   minWidth: 20,
-                  child: const Icon(
+                  child: Icon(
                     Icons.replay_5,
-                    color: Colors.white,
+                    color: widget.iconColor ?? Colors.white,
                     size: 20.0,
                   ),
                 ),
@@ -247,9 +279,9 @@ class SmartPlayerState extends State<SmartPlayer> {
                               : controller.play();
                           setState(() {});
                         },
-                        child: const Icon(
+                        child: Icon(
                           Icons.pause,
-                          color: Colors.white,
+                          color: widget.iconColor ?? Colors.white,
                           size: 30.0,
                         ),
                       )
@@ -261,9 +293,9 @@ class SmartPlayerState extends State<SmartPlayer> {
                               : controller.play();
                           setState(() {});
                         },
-                        child: const Icon(
+                        child: Icon(
                           Icons.play_arrow,
-                          color: Colors.white,
+                          color: widget.iconColor ?? Colors.white,
                           size: 30.0,
                         ),
                       ),
@@ -278,9 +310,9 @@ class SmartPlayerState extends State<SmartPlayer> {
                     setState(() {});
                   },
                   minWidth: 20,
-                  child: const Icon(
+                  child: Icon(
                     Icons.forward_5,
-                    color: Colors.white,
+                    color: widget.iconColor ?? Colors.white,
                     size: 20.0,
                   ),
                 ),
@@ -293,6 +325,10 @@ class SmartPlayerState extends State<SmartPlayer> {
                             builder: (_) => FullScreenPlayerPage(
                                   // duration: sec,
                                   controller: _controller!,
+                                  selectedBarColor: widget.selectedBarColor,
+                                  unSelectedBarColor: widget.unSelectedBarColor,
+                                  textColor: widget.textColor,
+                                  iconColor: widget.iconColor,
                                 ))).then((value) => {
                           _controller = value,
                           SystemChrome.setPreferredOrientations([
@@ -302,9 +338,9 @@ class SmartPlayerState extends State<SmartPlayer> {
                         });
                   },
                   minWidth: 20,
-                  child: const Icon(
+                  child: Icon(
                     Icons.fullscreen,
-                    color: Colors.white,
+                    color: widget.iconColor ?? Colors.white,
                     size: 20.0,
                   ),
                 ),

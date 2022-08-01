@@ -6,9 +6,22 @@ import 'package:video_player/video_player.dart';
 
 class ProgressBarPage extends StatefulWidget {
   final VideoPlayerController controller;
-  final double? progressVol;
 
-  const ProgressBarPage({Key? key, required this.controller, this.progressVol})
+  ///this variable is used to change text color of time.
+  final Color? textColor;
+
+  ///this variable is used to change progress selected bar color.
+  final Color? selectedBarColor;
+
+  ///this variable is used to change progress unSelect bar color.
+  final Color? unSelectedBarColor;
+
+  const ProgressBarPage(
+      {Key? key,
+      required this.controller,
+      this.textColor,
+      this.selectedBarColor,
+      this.unSelectedBarColor})
       : super(key: key);
 
   @override
@@ -94,7 +107,8 @@ class ProgressBarPageState extends State<ProgressBarPage> {
             children: <Widget>[
               Text(
                 formatDuration(widget.controller.value.position),
-                style: const TextStyle(color: Colors.white70, fontSize: 16.0),
+                style: TextStyle(
+                    color: widget.textColor ?? Colors.white70, fontSize: 16.0),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height / 30,
@@ -103,7 +117,10 @@ class ProgressBarPageState extends State<ProgressBarPage> {
                     : MediaQuery.of(context).size.width - 150,
                 child: GestureDetector(
                   child: CustomPaint(
-                    painter: progressFiller(controller: widget.controller),
+                    painter: progressFiller(
+                        controller: widget.controller,
+                        selectedBarColor: widget.selectedBarColor,
+                        unSelectedBarColor: widget.unSelectedBarColor),
                   ),
                   onHorizontalDragStart: (DragStartDetails details) {
                     if (!widget.controller.value.isInitialized) {
@@ -130,7 +147,8 @@ class ProgressBarPageState extends State<ProgressBarPage> {
               ),
               Text(
                 formatDuration(widget.controller.value.duration),
-                style: const TextStyle(color: Colors.white70, fontSize: 16.0),
+                style: TextStyle(
+                    color: widget.textColor ?? Colors.white70, fontSize: 16.0),
               ),
             ],
           ),
@@ -144,7 +162,16 @@ class ProgressBarPageState extends State<ProgressBarPage> {
 class progressFiller extends CustomPainter {
   VideoPlayerController controller;
 
-  progressFiller({required this.controller});
+  ///this variable is used to change progress bar color.
+  final Color? selectedBarColor;
+
+  ///this variable is used to change progress unSelect bar color.
+  final Color? unSelectedBarColor;
+
+  progressFiller(
+      {required this.controller,
+      this.selectedBarColor,
+      this.unSelectedBarColor});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -163,7 +190,7 @@ class progressFiller extends CustomPainter {
         ),
         const Radius.circular(5.0), //To make end's of slider to be circular
       ),
-      Paint()..color = Colors.white70,
+      Paint()..color = unSelectedBarColor ?? Colors.white70,
     );
     final double partPlayed = controller.value.position.inMilliseconds /
         controller.value.duration.inMilliseconds;
@@ -178,14 +205,15 @@ class progressFiller extends CustomPainter {
         ),
         const Radius.circular(5.0),
       ),
-      Paint()..color = Colors.red,
+      Paint()..color = selectedBarColor ?? Colors.red,
     );
 
     canvas.drawCircle(
         Offset(playful, size.height / 2 + 2),
         10.0,
         Paint()
-          ..color = Colors.red); //circular head attached at the end of slider
+          ..color = selectedBarColor ??
+              Colors.red); //circular head attached at the end of slider
   }
 
   @override

@@ -40,11 +40,15 @@ class _MyHomePageState extends State<MyHomePage> {
         height: 300,
         width: MediaQuery.of(context).size.width,
         child: const SmartPlayer(
-          url:
-              "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
-          adsUrl: "",
-          showAds: true,
-        ),
+            url:
+                "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+            showAds: false,
+            showControls: true,
+            textColor: Colors.red,
+            selectedBarColor: Colors.lightBlue,
+            unSelectedBarColor: Colors.limeAccent,
+            skipText: Colors.orange,
+            iconColor: Colors.green),
       ),
     );
   }
