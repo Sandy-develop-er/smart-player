@@ -82,9 +82,11 @@ class SmartPlayerState extends State<SmartPlayer> {
     super.initState();
     showControls = widget.showControls ?? true;
     advertisementUrl = widget.adsUrl?.trim() ?? "";
-    _adsController = VideoPlayerController.network(advertisementUrl.isNotEmpty
-        ? advertisementUrl
-        : "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",);
+    _adsController = VideoPlayerController.network(
+      advertisementUrl.isNotEmpty
+          ? advertisementUrl
+          : "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+    );
     _adsController?.initialize().then((_) => setState(() {}));
     _adsController?.play();
     _controller = VideoPlayerController.network(widget.url);
