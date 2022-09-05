@@ -15,3 +15,6 @@ Add more parameter for dynamic colors,add ads url option.
 
 ## 0.0.9
 Update video player library.
+
+## 0.0.9+1
+Update video player library.
