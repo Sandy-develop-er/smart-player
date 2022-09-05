@@ -13,3 +13,5 @@ Code formatting and add screen shots url.
 ## 0.0.8
 Add more parameter for dynamic colors,add ads url option.
 
+## 0.0.9
+Update video player library.

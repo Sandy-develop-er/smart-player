@@ -78,7 +78,7 @@ class ProgressBarPageState extends State<ProgressBarPage> {
             ? '00'
             : '0$seconds';
     final formattedTime =
-        '${hoursString == '00' ? '' : '$hoursString:'}$minutesString:$secondsString';
+        '${hoursString.toLowerCase() == '00' ? '' : '$hoursString:'}$minutesString:$secondsString';
     return formattedTime;
   }
 
